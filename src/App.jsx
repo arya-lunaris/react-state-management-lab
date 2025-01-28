@@ -93,7 +93,7 @@ const App = () => {
   const handleAddFighter = (newFighter) => {
     if (money < newFighter.price) {
       console.log("Not enough money");
-      return; 
+      return;
     }
 
     const newTeamArray = [...team, newFighter];
@@ -108,42 +108,62 @@ const App = () => {
     setMoney(newMoney);
   };
 
+const totalStrength = team.reduce((total, fighter) => total + fighter.strength,0);
+const totalAgility = team.reduce((total, fighter) => total + fighter.agility,0);
 
-return (
-  <>
-    <h1>Zombie Fighters</h1>
-    <h2>Money: ${money}</h2>
-    <h2>Team:</h2>
+const handleRemoveFighter = (loseFighter) => {
+  const updatedTeamArray = team.filter(
+    (fighter) => fighter.id !== loseFighter.id
+  );
+  setTeam(updatedTeamArray);
 
-    <ul>
-      {team.map((fighter) => (
-        <li key={fighter.id}>
-          <img src={fighter.img} alt={fighter.name} />
-          <h2>Name: {fighter.name}</h2>
-          <p>Price: ${fighter.price}</p>
-          <p>Strength: {fighter.strength}</p>
-          <p>Agility: {fighter.agility}</p>
-          {/* <button onClick={() => handleAddFighter(fighter)}>Add</button> */}
-        </li>
-      ))}
-    </ul>
+  const newZombieArray = [...zombieFighters, loseFighter];
+  setZombieFighters(newZombieArray);
 
-    <h2>Zombie Fighters:</h2>
+  const newMoney = money + loseFighter.price;
+  setMoney(newMoney);
+};
 
-    <ul>
-      {zombieFighters.map((fighter) => (
-        <li key={fighter.id}>
-          <img src={fighter.img} alt={fighter.name} />
-          <h2>Name: {fighter.name}</h2>
-          <p>Price: ${fighter.price}</p>
-          <p>Strength: {fighter.strength}</p>
-          <p>Agility: {fighter.agility}</p>
-          <button onClick={() => handleAddFighter(fighter)}>Add</button>
-        </li>
-      ))}
-    </ul>
-  </>
-);
+  return (
+    <>
+      <h1>Zombie Fighters</h1>
+      <h2>Money: ${money}</h2>
+      <h2>Team:</h2>
+      <h2>Team Strength: {totalStrength}</h2>
+      <h2>Team Agility: {totalAgility}</h2>
+  
+      {team.length === 0 ? (
+        <p>Pick some team members!</p>
+      ) : (
+        <ul>
+          {team.map((fighter) => (
+            <li key={fighter.id}>
+              <img src={fighter.img} alt={fighter.name} />
+              <h2>Name: {fighter.name}</h2>
+              <p>Price: ${fighter.price}</p>
+              <p>Strength: {fighter.strength}</p>
+              <p>Agility: {fighter.agility}</p>
+              <button onClick={() => handleRemoveFighter(fighter)}>Remove Fighter</button>
+            </li>
+          ))}
+        </ul>
+      )}
+  
+      <h2>Zombie Fighters:</h2>
+      <ul>
+        {zombieFighters.map((fighter) => (
+          <li key={fighter.id}>
+            <img src={fighter.img} alt={fighter.name} />
+            <h2>Name: {fighter.name}</h2>
+            <p>Price: ${fighter.price}</p>
+            <p>Strength: {fighter.strength}</p>
+            <p>Agility: {fighter.agility}</p>
+            <button onClick={() => handleAddFighter(fighter)}>Add Fighter</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }
 
 export default App;
