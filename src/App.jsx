@@ -91,17 +91,22 @@ const App = () => {
   ]);
 
   const handleAddFighter = (newFighter) => {
+    if (money < newFighter.price) {
+      console.log("Not enough money");
+      return; 
+    }
+
     const newTeamArray = [...team, newFighter];
-    setTeam(newTeamArray)
+    setTeam(newTeamArray);
 
     const updatedZombieFighters = zombieFighters.filter(
       (fighter) => fighter.id !== newFighter.id
     );
     setZombieFighters(updatedZombieFighters);
 
-    const newMoneyArray = money - newFighter.price;
-    setMoney(newMoneyArray)
-  }
+    const newMoney = money - newFighter.price;
+    setMoney(newMoney);
+  };
 
 
 return (
