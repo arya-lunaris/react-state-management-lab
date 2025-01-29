@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import ZombieFighters from './components/ZombieFighters/ZombieFighters.jsx';
-import './app.css';
+import './App.css';
 
 
 const App = () => {
@@ -108,30 +107,30 @@ const App = () => {
     setMoney(newMoney);
   };
 
-const totalStrength = team.reduce((total, fighter) => total + fighter.strength,0);
-const totalAgility = team.reduce((total, fighter) => total + fighter.agility,0);
+  const totalStrength = team.reduce((total, fighter) => total + fighter.strength, 0);
+  const totalAgility = team.reduce((total, fighter) => total + fighter.agility, 0);
 
-const handleRemoveFighter = (loseFighter) => {
-  const updatedTeamArray = team.filter(
-    (fighter) => fighter.id !== loseFighter.id
-  );
-  setTeam(updatedTeamArray);
+  const handleRemoveFighter = (loseFighter) => {
+    const updatedTeamArray = team.filter(
+      (fighter) => fighter.id !== loseFighter.id
+    );
+    setTeam(updatedTeamArray);
 
-  const newZombieArray = [...zombieFighters, loseFighter];
-  setZombieFighters(newZombieArray);
+    const newZombieArray = [...zombieFighters, loseFighter];
+    setZombieFighters(newZombieArray);
 
-  const newMoney = money + loseFighter.price;
-  setMoney(newMoney);
-};
+    const newMoney = money + loseFighter.price;
+    setMoney(newMoney);
+  };
 
   return (
     <>
       <h1>Zombie Fighters</h1>
       <h2>Money: ${money}</h2>
-      <h2>Team:</h2>
       <h2>Team Strength: {totalStrength}</h2>
       <h2>Team Agility: {totalAgility}</h2>
-  
+      <h2>Team:</h2>
+
       {team.length === 0 ? (
         <p>Pick some team members!</p>
       ) : (
@@ -139,7 +138,7 @@ const handleRemoveFighter = (loseFighter) => {
           {team.map((fighter) => (
             <li key={fighter.id}>
               <img src={fighter.img} alt={fighter.name} />
-              <h2>Name: {fighter.name}</h2>
+              <h3>Title: {fighter.name}</h3>
               <p>Price: ${fighter.price}</p>
               <p>Strength: {fighter.strength}</p>
               <p>Agility: {fighter.agility}</p>
@@ -148,13 +147,13 @@ const handleRemoveFighter = (loseFighter) => {
           ))}
         </ul>
       )}
-  
+
       <h2>Zombie Fighters:</h2>
       <ul>
         {zombieFighters.map((fighter) => (
           <li key={fighter.id}>
             <img src={fighter.img} alt={fighter.name} />
-            <h2>Name: {fighter.name}</h2>
+            <h3>Title: {fighter.name}</h3>
             <p>Price: ${fighter.price}</p>
             <p>Strength: {fighter.strength}</p>
             <p>Agility: {fighter.agility}</p>
